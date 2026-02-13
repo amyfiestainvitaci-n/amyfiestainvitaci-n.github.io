@@ -6,18 +6,12 @@
 <title>15 Años Amy</title>
 
 <style>
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
+*{margin:0;padding:0;box-sizing:border-box;}
 body{
-    font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(180deg,#0f0c29,#302b63,#24243e);
-    overflow:hidden;
+    font-family:'Segoe UI',sans-serif;
+    background:linear-gradient(180deg,#0f0c29,#302b63,#24243e);
     color:white;
+    overflow:hidden;
 }
 
 /* ===== ESTRELLAS ===== */
@@ -30,55 +24,70 @@ canvas{
 
 /* ===== CONTENEDOR ===== */
 .container{
-    position:relative;
     display:flex;
     flex-direction:column;
-    justify-content:center;
     align-items:center;
+    justify-content:center;
     height:100vh;
     text-align:center;
     padding:20px;
 }
 
-/* ===== NEÓN ===== */
+/* ===== NEON ===== */
 .neon{
     font-size:60px;
-    font-weight:bold;
     text-shadow:
         0 0 5px #ff00ff,
         0 0 10px #ff00ff,
         0 0 20px #ff00ff,
         0 0 40px #ff00ff;
-    animation:parpadeo 2s infinite alternate;
+    animation:blink 2s infinite alternate;
 }
 
 .nombre{
     font-size:70px;
-    margin-top:10px;
+    margin:10px 0;
     text-shadow:
         0 0 5px #00ffff,
         0 0 10px #00ffff,
         0 0 20px #00ffff;
 }
 
-@keyframes parpadeo{
+@keyframes blink{
     from{opacity:1;}
     to{opacity:0.6;}
 }
 
 .fecha{
-    margin-top:20px;
-    font-size:20px;
+    font-size:18px;
     opacity:0.8;
+    margin-bottom:20px;
+}
+
+/* ===== CONTADOR ===== */
+.contador{
+    display:flex;
+    gap:15px;
+    margin-bottom:30px;
+}
+
+.time-box{
+    background:rgba(255,255,255,0.1);
+    padding:15px;
+    border-radius:15px;
+    min-width:60px;
+}
+
+.time-box span{
+    font-size:22px;
+    font-weight:bold;
 }
 
 /* ===== BOTONES ===== */
-
 .botones{
-    margin-top:40px;
     display:flex;
     flex-direction:column;
-    gap:15px;
+    gap:12px;
     width:260px;
 }
 
@@ -91,22 +100,12 @@ button{
     transition:0.3s;
 }
 
-.btn{
-    background:#ff00ff;
-    color:white;
-}
+.btn{background:#ff00ff;color:white;}
+.btn:hover{transform:scale(1.08);}
 
-.btn:hover{
-    transform:scale(1.08);
-}
-
-.btn-music{
-    background:#00ffff;
-    color:black;
-}
+.btn-music{background:#00ffff;color:black;}
 
 /* ===== MODAL ===== */
-
 .modal{
     position:fixed;
     top:0;
@@ -122,10 +121,7 @@ button{
     transition:0.3s;
 }
 
-.modal.active{
-    visibility:visible;
-    opacity:1;
-}
+.modal.active{visibility:visible;opacity:1;}
 
 .modal-content{
     background:linear-gradient(135deg,#ff758c,#ff7eb3);
@@ -133,14 +129,9 @@ button{
     border-radius:20px;
     width:90%;
     max-width:350px;
-    text-align:center;
 }
 
-.modal-content h2{
-    margin-bottom:15px;
-}
-
-input, textarea{
+input,textarea{
     width:100%;
     padding:10px;
     margin-bottom:10px;
@@ -148,17 +139,12 @@ input, textarea{
     border:none;
 }
 
-.close{
-    margin-top:10px;
-    background:black;
-    color:white;
-}
+.close{background:black;color:white;}
 
 @media(max-width:500px){
     .neon{font-size:40px;}
     .nombre{font-size:50px;}
 }
-
 </style>
 </head>
 
@@ -172,10 +158,18 @@ input, textarea{
     <div class="nombre">AMY</div>
     <div class="fecha">SÁBADO 21 FEBRERO • 8PM</div>
 
+    <!-- CONTADOR -->
+    <div class="contador">
+        <div class="time-box"><span id="dias">0</span><br>Días</div>
+        <div class="time-box"><span id="horas">0</span><br>Horas</div>
+        <div class="time-box"><span id="minutos">0</span><br>Min</div>
+        <div class="time-box"><span id="segundos">0</span><br>Seg</div>
+    </div>
+
     <div class="botones">
         <button class="btn" onclick="abrirModal()">CONFIRMAR ASISTENCIA</button>
         <button class="btn" onclick="verUbicacion()">VER UBICACIÓN</button>
-        <button class="btn-music" onclick="toggleMusic()">🎵 ACTIVAR MÚSICA</button>
+        <button class="btn-music" onclick="toggleMusic()">🎵 MÚSICA</button>
     </div>
 
 </div>
@@ -184,105 +178,100 @@ input, textarea{
 <div class="modal" id="modal">
     <div class="modal-content">
         <h2>Confirma tu asistencia 💖</h2>
-        <input type="text" id="nombre" placeholder="Nombre que aparece en la invitación">
-        <textarea id="mensaje" placeholder="Escribe un mensaje para la quinceañera"></textarea>
-        <button class="btn" onclick="enviarWhatsApp()">Enviar Confirmación</button>
+        <input type="text" id="nombre" placeholder="Nombre en la invitación">
+        <textarea id="mensaje" placeholder="Mensaje para la quinceañera"></textarea>
+        <button class="btn" onclick="enviarWhatsApp()">Enviar</button>
         <button class="close" onclick="cerrarModal()">Cerrar</button>
     </div>
 </div>
 
-<!-- AUDIO -->
 <audio id="musica" loop>
-<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_6c3d02ed89.mp3?filename=dreams-110734.mp3" type="audio/mpeg">
+<source src="musica.mp3" type="audio/mpeg">
 </audio>
 
 <script>
 
+/* ===== CONTADOR ===== */
+const evento=new Date("February 21, 2026 20:00:00").getTime();
+
+setInterval(()=>{
+    const ahora=new Date().getTime();
+    const diferencia=evento-ahora;
+
+    const dias=Math.floor(diferencia/(1000*60*60*24));
+    const horas=Math.floor((diferencia%(1000*60*60*24))/(1000*60*60));
+    const minutos=Math.floor((diferencia%(1000*60*60))/(1000*60));
+    const segundos=Math.floor((diferencia%(1000*60))/1000);
+
+    document.getElementById("dias").innerHTML=dias;
+    document.getElementById("horas").innerHTML=horas;
+    document.getElementById("minutos").innerHTML=minutos;
+    document.getElementById("segundos").innerHTML=segundos;
+},1000);
+
 /* ===== ESTRELLAS ===== */
+const canvas=document.getElementById("stars");
+const ctx=canvas.getContext("2d");
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
 
-const canvas = document.getElementById("stars");
-const ctx = canvas.getContext("2d");
-
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-let estrellas = [];
-
-for(let i=0;i<150;i++){
+let estrellas=[];
+for(let i=0;i<120;i++){
     estrellas.push({
         x:Math.random()*canvas.width,
         y:Math.random()*canvas.height,
-        radius:Math.random()*2,
-        speed:Math.random()*1
+        r:Math.random()*2,
+        s:Math.random()*1
     });
 }
 
-function dibujar(){
+function animar(){
     ctx.clearRect(0,0,canvas.width,canvas.height);
     ctx.fillStyle="white";
     estrellas.forEach(e=>{
         ctx.beginPath();
-        ctx.arc(e.x,e.y,e.radius,0,Math.PI*2);
+        ctx.arc(e.x,e.y,e.r,0,Math.PI*2);
         ctx.fill();
-        e.y+=e.speed;
-        if(e.y>canvas.height){e.y=0;}
+        e.y+=e.s;
+        if(e.y>canvas.height)e.y=0;
     });
-    requestAnimationFrame(dibujar);
+    requestAnimationFrame(animar);
 }
-dibujar();
+animar();
 
 /* ===== MODAL ===== */
-
-function abrirModal(){
-    document.getElementById("modal").classList.add("active");
-}
-
-function cerrarModal(){
-    document.getElementById("modal").classList.remove("active");
-}
+function abrirModal(){document.getElementById("modal").classList.add("active");}
+function cerrarModal(){document.getElementById("modal").classList.remove("active");}
 
 /* ===== MAPA ===== */
-
 function verUbicacion(){
     window.open("https://maps.google.com/?q=Quito,Ecuador","_blank");
 }
 
 /* ===== WHATSAPP ===== */
-
 function enviarWhatsApp(){
     let nombre=document.getElementById("nombre").value.trim();
     let mensajePersonal=document.getElementById("mensaje").value.trim();
 
-    if(nombre===""){
-        alert("Por favor escribe tu nombre");
-        return;
-    }
+    if(nombre===""){alert("Escribe tu nombre");return;}
 
-    let mensaje=`Hola Amy 💖%0AConfirmo mi asistencia a tus 15 años ✨%0A`;
+    let mensaje=`Hola Amy 💖%0AConfirmo mi asistencia ✨%0A`;
     mensaje+=`Nombre: ${nombre}%0A`;
 
     if(mensajePersonal!==""){
         mensaje+=`Mensaje: ${mensajePersonal}`;
     }
 
-    let numeroDestino="593981811413";
-    let url=`https://wa.me/${numeroDestino}?text=${mensaje}`;
+    let url=`https://wa.me/593981811413?text=${mensaje}`;
     window.open(url,"_blank");
 }
 
 /* ===== MUSICA ===== */
-
 let musica=document.getElementById("musica");
 let activo=false;
-
 function toggleMusic(){
-    if(!activo){
-        musica.play();
-        activo=true;
-    }else{
-        musica.pause();
-        activo=false;
-    }
+    if(!activo){musica.play();activo=true;}
+    else{musica.pause();activo=false;}
 }
 
 </script>
