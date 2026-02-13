@@ -14,7 +14,7 @@
   --pink2:#ff1493;
   --white:rgba(255,255,255,.95);
   --glass:rgba(255,255,255,.22);
-  --shadow:0 12px 40px rgba(255,20,147,.25);
+  --shadow:0 12px 40px rgba(255,20,147,.22);
 }
 body{
   font-family:'Poppins',sans-serif;
@@ -59,14 +59,14 @@ canvas{
   opacity:.9;
 }
 
-/* ===== 15 FLOTANTES DINÁMICOS ===== */
+/* 15 FLOTANTES (pocos y elegantes) */
 .floating15{
   position:fixed;
   font-weight:900;
   color:rgba(255,20,147,0.12);
   text-shadow:
-    0 0 18px rgba(255,20,147,.25),
-    0 0 40px rgba(255,20,147,.22);
+    0 0 18px rgba(255,20,147,.22),
+    0 0 42px rgba(255,20,147,.18);
   pointer-events:none;
   z-index:-3;
   will-change: transform, opacity;
@@ -159,7 +159,7 @@ button{
   color:white;
   transition:transform .2s ease, box-shadow .2s ease, filter .2s ease;
   background:linear-gradient(90deg,var(--pink2),var(--pink1));
-  box-shadow:0 12px 30px rgba(255,20,147,.25);
+  box-shadow:0 12px 30px rgba(255,20,147,.22);
 }
 button:hover{
   transform:translateY(-2px) scale(1.03);
@@ -241,7 +241,7 @@ textarea{min-height:90px; resize:none;}
   border:none;
   color:white;
   font-weight:900;
-  box-shadow:0 12px 30px rgba(255,20,147,.25);
+  box-shadow:0 12px 30px rgba(255,20,147,.22);
   cursor:pointer;
 }
 
@@ -335,27 +335,30 @@ textarea{min-height:90px; resize:none;}
 <button class="music-btn" onclick="toggleMusic()">🎵 Música</button>
 
 <script>
-/* ===== 15 FLOTANTES: ARRANCAN INMEDIATO ===== */
+/* ===== UTILIDADES ===== */
+const rnd = (min,max)=> Math.random()*(max-min)+min;
+
+/* ===== 15 FLOTANTES: POCOS + NATURALES (no se nota bucle) ===== */
 function crear15(){
   const el = document.createElement("div");
   el.className = "floating15";
   el.textContent = "15";
 
-  // tamaño, posición
-  const size = Math.random()*90 + 70; // 70..160
-  el.style.fontSize = size + "px";
-  el.style.left = (Math.random()*100) + "vw";
-  el.style.top = "110vh";
+  const size = rnd(74, 145);     // tamaño elegante
+  const left = rnd(-5, 105);     // algunos entran ligeramente fuera
+  const baseOpacity = rnd(0.22, 0.48);
+  const blur = rnd(0.0, 1.1);
 
-  // variaciones
-  const baseOpacity = Math.random()*0.35 + 0.25; // 0.25..0.60
+  el.style.fontSize = size + "px";
+  el.style.left = left + "vw";
+  el.style.top = "112vh";
   el.style.opacity = baseOpacity.toFixed(2);
-  const blur = Math.random()*1.1;
   el.style.filter = `blur(${blur.toFixed(2)}px)`;
 
-  const rot0 = (Math.random()*18 - 9);
-  const drift = (Math.random()*16 - 8); // movimiento lateral
-  const duration = Math.random()*12000 + 9000; // 9..21s
+  // movimiento aleatorio
+  const rot0 = rnd(-10, 10);
+  const drift = rnd(-7, 7);
+  const duration = rnd(14000, 26000); // lento y elegante
   const start = performance.now();
 
   document.body.appendChild(el);
@@ -363,15 +366,11 @@ function crear15(){
   function step(now){
     const p = Math.min(1, (now - start)/duration);
 
-    // sube desde abajo a arriba
-    const yVh = 110 - p*150; // 110 -> -40
+    const yVh = 112 - p*160;             // 112 -> -48
     const xVw = drift * Math.sin(p*Math.PI*2);
-    const scale = 0.92 + 0.12*Math.sin(p*Math.PI);
+    const scale = 0.92 + 0.10*Math.sin(p*Math.PI);
 
-    // translate en vh: usamos calc con transform
-    el.style.transform = `translate(${xVw}vw, -${(110 - yVh)}vh) rotate(${rot0 + p*12}deg) scale(${scale})`;
-
-    // fade out suave
+    el.style.transform = `translate(${xVw}vw, -${(112 - yVh)}vh) rotate(${rot0 + p*12}deg) scale(${scale})`;
     el.style.opacity = (baseOpacity * (1 - p)).toFixed(2);
 
     if(p < 1) requestAnimationFrame(step);
@@ -380,14 +379,28 @@ function crear15(){
   requestAnimationFrame(step);
 }
 
-// 🔥 INICIO: salen YA (burst) apenas abre la página
-(function start15Now(){
-  for(let i=0;i<14;i++){
-    setTimeout(crear15, i*120); // súper rápido al inicio
+/* Arranque: pocos, elegantes */
+function iniciar15(){
+  for(let i=0;i<4;i++){
+    setTimeout(crear15, i*260);
   }
-  // luego continuo
-  setInterval(crear15, 900);
-})();
+  programarSiguiente15();
+}
+
+/* Programación aleatoria para NO notar patrón */
+function programarSiguiente15(){
+  const next = rnd(2200, 4200); // 2.2s a 4.2s
+  setTimeout(()=>{
+    crear15();
+
+    // 15% chance de que salga uno extra (para romper patrón)
+    if(Math.random() < 0.15){
+      setTimeout(crear15, rnd(250, 800));
+    }
+
+    programarSiguiente15();
+  }, next);
+}
 
 /* ===== MÚSICA AUTO ===== */
 const musica = document.getElementById("musica");
@@ -423,11 +436,7 @@ window.addEventListener("resize", resize);
 
 let stars=[];
 for(let i=0;i<120;i++){
-  stars.push({
-    x:Math.random()*canvas.width,
-    y:Math.random()*canvas.height,
-    r:Math.random()*2.1
-  });
+  stars.push({ x:Math.random()*canvas.width, y:Math.random()*canvas.height, r:rnd(0.7,2.2) });
 }
 let t=0;
 function animateStars(){
@@ -480,6 +489,9 @@ function enviarWhatsApp(){
   cerrarModal("modalConfirmar");
   setTimeout(()=> document.getElementById("modalGracias").classList.add("active"), 900);
 }
+
+/* ✅ ARRANCAR TODO AL ABRIR */
+document.addEventListener("DOMContentLoaded", iniciar15);
 </script>
 </body>
 </html>
