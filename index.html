@@ -12,7 +12,7 @@
 :root{
   --pink1:#ff69b4;
   --pink2:#ff1493;
-  --white:rgba(255,255,255,.92);
+  --white:rgba(255,255,255,.95);
   --glass:rgba(255,255,255,.22);
   --shadow:0 12px 40px rgba(255,20,147,.25);
 }
@@ -23,11 +23,11 @@ body{
   color:white;
 }
 
-/* ===== AURA / FONDO PRINCESA ===== */
+/* AURA */
 .bg-aura{
   position:fixed;
   inset:-20%;
-  z-index:-4;
+  z-index:-6;
   background:
     radial-gradient(circle at 20% 20%, rgba(255,255,255,.25), transparent 40%),
     radial-gradient(circle at 80% 30%, rgba(255,105,180,.25), transparent 45%),
@@ -35,47 +35,44 @@ body{
   filter: blur(10px);
   animation:aura 10s ease-in-out infinite alternate;
 }
-@keyframes aura{
-  from{transform:scale(1);}
-  to{transform:scale(1.05);}
-}
+@keyframes aura{ from{transform:scale(1);} to{transform:scale(1.05);} }
 
-/* ===== ESTRELLAS ===== */
+/* ESTRELLAS */
 canvas{
   position:fixed;
   inset:0;
-  z-index:-3;
+  z-index:-5;
 }
 
-/* ===== BOKEH/LUCEZITAS ===== */
+/* BOKEH */
 .bokeh{
   position:fixed;
   inset:0;
-  z-index:-2;
+  z-index:-4;
   pointer-events:none;
   background:
-    radial-gradient(circle at 15% 40%, rgba(255,255,255,.25), transparent 30%),
-    radial-gradient(circle at 65% 20%, rgba(255,255,255,.18), transparent 35%),
+    radial-gradient(circle at 15% 40%, rgba(255,255,255,.22), transparent 30%),
+    radial-gradient(circle at 65% 20%, rgba(255,255,255,.16), transparent 35%),
     radial-gradient(circle at 80% 70%, rgba(255,255,255,.14), transparent 35%),
     radial-gradient(circle at 30% 80%, rgba(255,255,255,.12), transparent 40%);
   filter: blur(1px);
   opacity:.9;
 }
 
-/* ===== 15 DINÁMICOS ===== */
+/* ===== 15 FLOTANTES DINÁMICOS ===== */
 .floating15{
   position:fixed;
-  font-weight:800;
-  color:rgba(255,20,147,0.10);
+  font-weight:900;
+  color:rgba(255,20,147,0.12);
   text-shadow:
     0 0 18px rgba(255,20,147,.25),
-    0 0 40px rgba(255,20,147,.25);
-  filter: blur(.4px);
+    0 0 40px rgba(255,20,147,.22);
   pointer-events:none;
-  z-index:-1;
+  z-index:-3;
+  will-change: transform, opacity;
 }
 
-/* ===== CONTENEDOR ===== */
+/* CONTENEDOR */
 .container{
   height:100vh;
   display:flex;
@@ -87,7 +84,7 @@ canvas{
   gap:10px;
 }
 
-/* ===== TITULOS ===== */
+/* TITULOS */
 .title{
   font-family:'Great Vibes',cursive;
   font-size:52px;
@@ -110,7 +107,6 @@ canvas{
   0%,100%{transform:translateY(0);}
   50%{transform:translateY(-7px);}
 }
-
 .fecha{
   margin-top:6px;
   font-weight:600;
@@ -120,7 +116,7 @@ canvas{
   text-shadow:0 0 12px rgba(255,20,147,.35);
 }
 
-/* ===== CONTADOR ===== */
+/* CONTADOR */
 .contador{
   display:flex;
   gap:12px;
@@ -144,11 +140,9 @@ canvas{
   color:white;
   text-shadow:0 0 10px rgba(255,20,147,.25);
 }
-.box small{
-  opacity:.9;
-}
+.box small{opacity:.9;}
 
-/* ===== BOTONES ===== */
+/* BOTONES */
 .botones{
   display:flex;
   flex-direction:column;
@@ -161,7 +155,7 @@ button{
   border:none;
   border-radius:999px;
   cursor:pointer;
-  font-weight:700;
+  font-weight:800;
   color:white;
   transition:transform .2s ease, box-shadow .2s ease, filter .2s ease;
   background:linear-gradient(90deg,var(--pink2),var(--pink1));
@@ -171,22 +165,18 @@ button:hover{
   transform:translateY(-2px) scale(1.03);
   filter:saturate(1.05);
 }
-button:active{
-  transform:scale(.99);
-}
+button:active{transform:scale(.99);}
 
-/* ===== PIE "CON CARIÑO DE" ===== */
+/* CON CARIÑO */
 .carinio{
   margin-top:14px;
   font-size:13px;
   opacity:.95;
   text-shadow:0 0 10px rgba(255,255,255,.45);
 }
-.carinio strong{
-  font-weight:800;
-}
+.carinio strong{font-weight:900;}
 
-/* ===== MODALES ===== */
+/* MODALES */
 .modal{
   position:fixed;
   inset:0;
@@ -200,13 +190,10 @@ button:active{
   z-index:1000;
   padding:18px;
 }
-.modal.active{
-  visibility:visible;
-  opacity:1;
-}
+.modal.active{visibility:visible;opacity:1;}
 .modal-content{
   width:min(380px, 92vw);
-  background:rgba(255,255,255,.92);
+  background:rgba(255,255,255,.95);
   border-radius:22px;
   padding:22px;
   color:#d60f78;
@@ -240,11 +227,9 @@ textarea{min-height:90px; resize:none;}
   gap:10px;
   margin-top:12px;
 }
-.modal-actions button{
-  width:100%;
-}
+.modal-actions button{width:100%;}
 
-/* ===== BOTÓN MÚSICA ===== */
+/* MÚSICA */
 .music-btn{
   position:fixed;
   bottom:16px;
@@ -255,7 +240,7 @@ textarea{min-height:90px; resize:none;}
   background:linear-gradient(90deg,var(--pink2),var(--pink1));
   border:none;
   color:white;
-  font-weight:800;
+  font-weight:900;
   box-shadow:0 12px 30px rgba(255,20,147,.25);
   cursor:pointer;
 }
@@ -272,7 +257,6 @@ textarea{min-height:90px; resize:none;}
 <body>
 <div class="bg-aura"></div>
 <div class="bokeh"></div>
-
 <canvas id="stars"></canvas>
 
 <div class="container">
@@ -351,25 +335,71 @@ textarea{min-height:90px; resize:none;}
 <button class="music-btn" onclick="toggleMusic()">🎵 Música</button>
 
 <script>
-/* ========= MÚSICA AUTO =========
-   Nota: Algunos navegadores bloquean autoplay con sonido.
-   Por eso hacemos: autoplay + intentos + primer click.
-*/
-const musica = document.getElementById("musica");
-let musicEnabled = true;
+/* ===== 15 FLOTANTES: ARRANCAN INMEDIATO ===== */
+function crear15(){
+  const el = document.createElement("div");
+  el.className = "floating15";
+  el.textContent = "15";
 
-function tryPlay(){
-  musica.play().catch(()=>{ /* bloqueado por navegador */ });
+  // tamaño, posición
+  const size = Math.random()*90 + 70; // 70..160
+  el.style.fontSize = size + "px";
+  el.style.left = (Math.random()*100) + "vw";
+  el.style.top = "110vh";
+
+  // variaciones
+  const baseOpacity = Math.random()*0.35 + 0.25; // 0.25..0.60
+  el.style.opacity = baseOpacity.toFixed(2);
+  const blur = Math.random()*1.1;
+  el.style.filter = `blur(${blur.toFixed(2)}px)`;
+
+  const rot0 = (Math.random()*18 - 9);
+  const drift = (Math.random()*16 - 8); // movimiento lateral
+  const duration = Math.random()*12000 + 9000; // 9..21s
+  const start = performance.now();
+
+  document.body.appendChild(el);
+
+  function step(now){
+    const p = Math.min(1, (now - start)/duration);
+
+    // sube desde abajo a arriba
+    const yVh = 110 - p*150; // 110 -> -40
+    const xVw = drift * Math.sin(p*Math.PI*2);
+    const scale = 0.92 + 0.12*Math.sin(p*Math.PI);
+
+    // translate en vh: usamos calc con transform
+    el.style.transform = `translate(${xVw}vw, -${(110 - yVh)}vh) rotate(${rot0 + p*12}deg) scale(${scale})`;
+
+    // fade out suave
+    el.style.opacity = (baseOpacity * (1 - p)).toFixed(2);
+
+    if(p < 1) requestAnimationFrame(step);
+    else el.remove();
+  }
+  requestAnimationFrame(step);
 }
+
+// 🔥 INICIO: salen YA (burst) apenas abre la página
+(function start15Now(){
+  for(let i=0;i<14;i++){
+    setTimeout(crear15, i*120); // súper rápido al inicio
+  }
+  // luego continuo
+  setInterval(crear15, 900);
+})();
+
+/* ===== MÚSICA AUTO ===== */
+const musica = document.getElementById("musica");
+function tryPlay(){ musica.play().catch(()=>{}); }
 window.addEventListener("load", tryPlay);
 document.addEventListener("click", ()=> tryPlay(), { once:true });
-
 function toggleMusic(){
-  if(musica.paused){ musica.play(); musicEnabled=true; }
-  else{ musica.pause(); musicEnabled=false; }
+  if(musica.paused) musica.play();
+  else musica.pause();
 }
 
-/* ========= CONTADOR ========= */
+/* ===== CONTADOR ===== */
 const evento = new Date("February 21, 2026 20:00:00").getTime();
 setInterval(()=>{
   const ahora = new Date().getTime();
@@ -381,7 +411,7 @@ setInterval(()=>{
   document.getElementById("segundos").textContent = Math.max(0, Math.floor((d%(1000*60))/1000));
 },1000);
 
-/* ========= ESTRELLAS ========= */
+/* ===== ESTRELLAS ===== */
 const canvas = document.getElementById("stars");
 const ctx = canvas.getContext("2d");
 function resize(){
@@ -396,8 +426,7 @@ for(let i=0;i<120;i++){
   stars.push({
     x:Math.random()*canvas.width,
     y:Math.random()*canvas.height,
-    r:Math.random()*2.1,
-    tw:Math.random()*0.02 + 0.005
+    r:Math.random()*2.1
   });
 }
 let t=0;
@@ -405,7 +434,7 @@ function animateStars(){
   t+=0.01;
   ctx.clearRect(0,0,canvas.width,canvas.height);
   stars.forEach(s=>{
-    const a = 0.6 + 0.4*Math.sin(t + s.x*0.01);
+    const a = 0.55 + 0.45*Math.sin(t + s.x*0.01);
     ctx.fillStyle = `rgba(255,255,255,${a})`;
     ctx.beginPath();
     ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
@@ -415,25 +444,19 @@ function animateStars(){
 }
 animateStars();
 
-/* ========= MODALES ========= */
-function abrirConfirmar(){
-  document.getElementById("modalConfirmar").classList.add("active");
-}
-function abrirAvisos(){
-  document.getElementById("modalAvisos").classList.add("active");
-}
-function cerrarModal(id){
-  document.getElementById(id).classList.remove("active");
-}
+/* ===== MODALES ===== */
+function abrirConfirmar(){ document.getElementById("modalConfirmar").classList.add("active"); }
+function abrirAvisos(){ document.getElementById("modalAvisos").classList.add("active"); }
+function cerrarModal(id){ document.getElementById(id).classList.remove("active"); }
 
-/* ========= MAPA ========= */
+/* ===== MAPA ===== */
 function verUbicacion(){
   const direccion = "Salón de Eventos Rivadell, Gómez Rendón entre Tulcán y Carchi";
   const url = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(direccion);
   window.open(url, "_blank");
 }
 
-/* ========= WHATSAPP + AGRADECIMIENTO ========= */
+/* ===== WHATSAPP ===== */
 function enviarWhatsApp(){
   const nombre = document.getElementById("nombreInput").value.trim();
   const msg = document.getElementById("mensajeInput").value.trim();
@@ -443,74 +466,20 @@ function enviarWhatsApp(){
     return;
   }
 
-  // "Con cariño de" se actualiza
   document.getElementById("carinioTxt").textContent = nombre;
 
   const texto =
     `Hola Amy 💖✨%0A` +
     `¡Con muchísima alegría confirmo mi asistencia a tus 15 años! 👑🎉%0A%0A` +
     `🩷 De parte de: ${encodeURIComponent(nombre)}%0A` +
-    `💌 Mensajito: ${encodeURIComponent(msg || "¡Que Dios te bendiga siempre y que tengas una noche inolvidable! ✨💖")}%0A%0A` +
-    `Nos vemos para celebrar contigo 🥳🌸`;
+    `💌 Mensajito: ${encodeURIComponent(msg || "¡Que tengas una noche hermosa e inolvidable! 🌸✨💖")}%0A%0A` +
+    `Nos vemos para celebrar contigo 🥳🌷`;
 
   window.open(`https://wa.me/593981811413?text=${texto}`,"_blank");
 
   cerrarModal("modalConfirmar");
   setTimeout(()=> document.getElementById("modalGracias").classList.add("active"), 900);
 }
-
-/* ========= 15 DINÁMICOS: TODOS SALEN DE ABAJO ========= */
-function crear15(){
-  const el = document.createElement("div");
-  el.className = "floating15";
-  el.textContent = "15";
-
-  // tamaño y posición
-  const size = Math.random()*90 + 70; // 70..160
-  el.style.fontSize = size + "px";
-  el.style.left = (Math.random()*100) + "vw";
-  el.style.top = "110vh";
-
-  // variaciones visuales
-  const blur = (Math.random()*1.2).toFixed(2);
-  el.style.filter = `blur(${blur}px)`;
-  el.style.opacity = (Math.random()*0.35 + 0.25).toFixed(2); // 0.25..0.60
-
-  const rot = (Math.random()*18 - 9).toFixed(1);
-  const drift = (Math.random()*18 - 9).toFixed(1); // movimiento lateral
-  const duration = Math.random()*12000 + 12000; // 12..24s
-  const start = performance.now();
-
-  document.body.appendChild(el);
-
-  function step(now){
-    const p = Math.min(1, (now - start)/duration);
-
-    // sube desde abajo (110vh) hasta -30vh
-    const y = 110 - p*140; // vh
-    const x = drift * Math.sin(p*Math.PI*2); // va y viene suave
-    const scale = 0.95 + 0.12*Math.sin(p*Math.PI); // leve “respirar”
-    el.style.transform = `translate(${x}vw, -${(110 - y)}vh) rotate(${rot + p*12}deg) scale(${scale})`;
-
-    // se desvanece al final
-    el.style.opacity = String((1 - p) * parseFloat(el.style.opacity));
-
-    if(p < 1){
-      requestAnimationFrame(step);
-    }else{
-      el.remove();
-    }
-  }
-
-  requestAnimationFrame(step);
-}
-
-// Al inicio: varios, pero TODOS parten de abajo
-for(let i=0;i<10;i++){
-  setTimeout(crear15, i*700);
-}
-// Continuo
-setInterval(crear15, 1400);
 </script>
 </body>
 </html>
