@@ -219,13 +219,30 @@ input,textarea{
 <!-- MODAL AVISOS -->
 <div class="modal" id="modalAvisos">
 <div class="modal-content">
-<h3>✨ Avisos Importantes ✨</h3>
-<p>👗 Dress code elegante</p>
-<p>🚗 Parqueadero disponible</p>
-<p>💖 Tu presencia es el mejor regalo</p>
+<h3>✨ Información del Evento ✨</h3>
+
+<p style="margin-top:10px;">
+📍 <strong>Recepción:</strong><br>
+Salón de Eventos Rivadell<br>
+Gómez Rendón entre Tulcán y Carchi
+</p>
+
+<p style="margin-top:10px;">
+👥 <strong>Admisión:</strong> 4 persona(s)
+</p>
+
+<p style="margin-top:10px;">
+👗 <strong>Traje:</strong> Formal
+</p>
+
+<p style="margin-top:10px;">
+⏰ Agradeceremos su puntualidad el día del evento
+</p>
+
 <button onclick="cerrarModal('modalAvisos')">Cerrar</button>
 </div>
 </div>
+
 
 <!-- MODAL GRACIAS -->
 <div class="modal" id="modalGracias">
@@ -292,8 +309,11 @@ function cerrarModal(id){document.getElementById(id).classList.remove("active");
 
 /* MAPA */
 function verUbicacion(){
-window.open("https://maps.google.com/?q=Quito,Ecuador","_blank");
+    const direccion = "Salón de Eventos Rivadell, Gómez Rendón entre Tulcán y Carchi";
+    const url = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(direccion);
+    window.open(url, "_blank");
 }
+
 
 /* WHATSAPP */
 function enviarWhatsApp(){
