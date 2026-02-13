@@ -1,371 +1,516 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Mis 15 Años Amy</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-
+:root{
+  --pink1:#ff69b4;
+  --pink2:#ff1493;
+  --white:rgba(255,255,255,.92);
+  --glass:rgba(255,255,255,.22);
+  --shadow:0 12px 40px rgba(255,20,147,.25);
+}
 body{
-    font-family:'Poppins',sans-serif;
-    background:linear-gradient(180deg,#ffb6d9,#ff9ecf,#ffc7ea);
-    overflow:hidden;
-    color:white;
+  font-family:'Poppins',sans-serif;
+  background:linear-gradient(180deg,#ffb6d9,#ff9ecf,#ffc7ea);
+  overflow:hidden;
+  color:white;
 }
 
-/* ESTRELLAS */
+/* ===== AURA / FONDO PRINCESA ===== */
+.bg-aura{
+  position:fixed;
+  inset:-20%;
+  z-index:-4;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255,255,255,.25), transparent 40%),
+    radial-gradient(circle at 80% 30%, rgba(255,105,180,.25), transparent 45%),
+    radial-gradient(circle at 55% 80%, rgba(255,20,147,.18), transparent 50%);
+  filter: blur(10px);
+  animation:aura 10s ease-in-out infinite alternate;
+}
+@keyframes aura{
+  from{transform:scale(1);}
+  to{transform:scale(1.05);}
+}
+
+/* ===== ESTRELLAS ===== */
 canvas{
-    position:fixed;
-    inset:0;
-    z-index:-3;
+  position:fixed;
+  inset:0;
+  z-index:-3;
 }
 
-/* 15 FLOTANTES */
-.floating{
-    position:fixed;
-    font-size:140px;
-    font-weight:bold;
-    color:rgba(255,20,147,0.15);
-    text-shadow:0 0 40px rgba(255,20,147,0.5);
-    animation:moveFloat 20s linear infinite;
-    z-index:-2;
+/* ===== BOKEH/LUCEZITAS ===== */
+.bokeh{
+  position:fixed;
+  inset:0;
+  z-index:-2;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 15% 40%, rgba(255,255,255,.25), transparent 30%),
+    radial-gradient(circle at 65% 20%, rgba(255,255,255,.18), transparent 35%),
+    radial-gradient(circle at 80% 70%, rgba(255,255,255,.14), transparent 35%),
+    radial-gradient(circle at 30% 80%, rgba(255,255,255,.12), transparent 40%);
+  filter: blur(1px);
+  opacity:.9;
 }
 
-@keyframes moveFloat{
-    0%{transform:translateY(100vh) scale(1);}
-    50%{transform:translateY(0vh) scale(1.1);}
-    100%{transform:translateY(-120vh) scale(1);}
+/* ===== 15 DINÁMICOS ===== */
+.floating15{
+  position:fixed;
+  font-weight:800;
+  color:rgba(255,20,147,0.10);
+  text-shadow:
+    0 0 18px rgba(255,20,147,.25),
+    0 0 40px rgba(255,20,147,.25);
+  filter: blur(.4px);
+  pointer-events:none;
+  z-index:-1;
 }
 
-/* CONTENEDOR */
+/* ===== CONTENEDOR ===== */
 .container{
-    height:100vh;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-    padding:20px;
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:20px;
+  gap:10px;
 }
 
-/* TITULOS */
+/* ===== TITULOS ===== */
 .title{
-    font-family:'Great Vibes',cursive;
-    font-size:55px;
-    text-shadow:0 0 15px #fff;
+  font-family:'Great Vibes',cursive;
+  font-size:52px;
+  color:var(--white);
+  text-shadow:0 0 18px rgba(255,255,255,.6);
+  animation:floatText 3.4s ease-in-out infinite;
 }
-
 .nombre{
-    font-family:'Great Vibes',cursive;
-    font-size:85px;
-    text-shadow:0 0 25px #ff1493,0 0 40px #ff69b4;
-    color:white;
+  font-family:'Great Vibes',cursive;
+  font-size:88px;
+  color:var(--white);
+  text-shadow:
+    0 0 18px rgba(255,255,255,.55),
+    0 0 30px rgba(255,105,180,.55),
+    0 0 45px rgba(255,20,147,.35);
+  animation:floatText 3.4s ease-in-out infinite;
+  animation-delay:.2s;
+}
+@keyframes floatText{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-7px);}
 }
 
 .fecha{
-    margin-top:10px;
-    font-weight:500;
-    text-shadow:0 0 10px #ff1493;
+  margin-top:6px;
+  font-weight:600;
+  letter-spacing:.6px;
+  font-size:14px;
+  color:rgba(255,255,255,.92);
+  text-shadow:0 0 12px rgba(255,20,147,.35);
 }
 
-/* CONTADOR */
+/* ===== CONTADOR ===== */
 .contador{
-    display:flex;
-    gap:15px;
-    margin:30px 0;
+  display:flex;
+  gap:12px;
+  margin:18px 0 10px;
+  flex-wrap:wrap;
+  justify-content:center;
 }
-
 .box{
-    background:rgba(255,255,255,0.25);
-    backdrop-filter:blur(8px);
-    padding:15px;
-    border-radius:15px;
-    min-width:70px;
+  background:var(--glass);
+  backdrop-filter:blur(10px);
+  box-shadow: var(--shadow);
+  padding:14px 12px;
+  border-radius:16px;
+  min-width:78px;
+  border:1px solid rgba(255,255,255,.25);
 }
-
 .box span{
-    font-size:22px;
-    font-weight:bold;
+  display:block;
+  font-size:22px;
+  font-weight:800;
+  color:white;
+  text-shadow:0 0 10px rgba(255,20,147,.25);
+}
+.box small{
+  opacity:.9;
 }
 
-/* BOTONES */
+/* ===== BOTONES ===== */
 .botones{
-    display:flex;
-    flex-direction:column;
-    gap:12px;
-    width:260px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  width:min(290px, 92vw);
+  margin-top:8px;
 }
-
 button{
-    padding:12px;
-    border:none;
-    border-radius:25px;
-    background:#ff1493;
-    color:white;
-    font-weight:600;
-    cursor:pointer;
-    transition:0.3s;
+  padding:12px 14px;
+  border:none;
+  border-radius:999px;
+  cursor:pointer;
+  font-weight:700;
+  color:white;
+  transition:transform .2s ease, box-shadow .2s ease, filter .2s ease;
+  background:linear-gradient(90deg,var(--pink2),var(--pink1));
+  box-shadow:0 12px 30px rgba(255,20,147,.25);
 }
-
 button:hover{
-    transform:scale(1.05);
-    background:#ff69b4;
+  transform:translateY(-2px) scale(1.03);
+  filter:saturate(1.05);
+}
+button:active{
+  transform:scale(.99);
 }
 
-/* MODALES */
+/* ===== PIE "CON CARIÑO DE" ===== */
+.carinio{
+  margin-top:14px;
+  font-size:13px;
+  opacity:.95;
+  text-shadow:0 0 10px rgba(255,255,255,.45);
+}
+.carinio strong{
+  font-weight:800;
+}
+
+/* ===== MODALES ===== */
 .modal{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,0.6);
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    visibility:hidden;
-    opacity:0;
-    transition:0.3s;
-    z-index:1000;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.55);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  visibility:hidden;
+  opacity:0;
+  transition:.25s;
+  z-index:1000;
+  padding:18px;
 }
-
 .modal.active{
-    visibility:visible;
-    opacity:1;
+  visibility:visible;
+  opacity:1;
 }
-
 .modal-content{
-    background:white;
-    padding:25px;
-    border-radius:20px;
-    width:90%;
-    max-width:350px;
-    color:#ff1493;
-    text-align:center;
+  width:min(380px, 92vw);
+  background:rgba(255,255,255,.92);
+  border-radius:22px;
+  padding:22px;
+  color:#d60f78;
+  box-shadow:0 20px 60px rgba(0,0,0,.25);
+  text-align:center;
+  border:1px solid rgba(255,20,147,.18);
+}
+.modal-content h3{
+  font-family:'Great Vibes',cursive;
+  font-size:40px;
+  margin-bottom:6px;
+  color:#ff1493;
+}
+.modal-content p{
+  color:#b40b63;
+  line-height:1.35;
+}
+.input, textarea{
+  width:100%;
+  padding:12px;
+  margin-top:10px;
+  border-radius:14px;
+  border:1px solid rgba(255,20,147,.25);
+  outline:none;
+  font-family:'Poppins';
+  background:white;
+}
+textarea{min-height:90px; resize:none;}
+.modal-actions{
+  display:flex;
+  gap:10px;
+  margin-top:12px;
+}
+.modal-actions button{
+  width:100%;
 }
 
-input,textarea{
-    width:100%;
-    padding:10px;
-    margin-bottom:10px;
-    border-radius:12px;
-    border:1px solid #ff69b4;
-}
-
+/* ===== BOTÓN MÚSICA ===== */
 .music-btn{
-    position:fixed;
-    bottom:20px;
-    left:20px;
-    background:#ff1493;
-    padding:10px 15px;
-    border-radius:20px;
-}
-.floating15{
-    position:fixed;
-    font-weight:bold;
-    color:rgba(255,20,147,0.12);
-    text-shadow:0 0 40px rgba(255,20,147,0.4);
-    pointer-events:none;
-    z-index:-2;
+  position:fixed;
+  bottom:16px;
+  left:16px;
+  z-index:1100;
+  padding:10px 14px;
+  border-radius:999px;
+  background:linear-gradient(90deg,var(--pink2),var(--pink1));
+  border:none;
+  color:white;
+  font-weight:800;
+  box-shadow:0 12px 30px rgba(255,20,147,.25);
+  cursor:pointer;
 }
 
 /* RESPONSIVE */
-@media(max-width:500px){
-    .nombre{font-size:55px;}
-    .title{font-size:40px;}
+@media(max-width:520px){
+  .nombre{font-size:62px;}
+  .title{font-size:40px;}
+  .box{min-width:72px;}
 }
 </style>
 </head>
 
 <body>
+<div class="bg-aura"></div>
+<div class="bokeh"></div>
 
 <canvas id="stars"></canvas>
 
-<div class="floating" style="left:10%;">15</div>
-<div class="floating" style="left:45%;animation-delay:6s;">15</div>
-<div class="floating" style="left:75%;animation-delay:12s;">15</div>
-
 <div class="container">
-    <div class="title">Mis</div>
-    <div class="nombre">15 Años Amy</div>
-    <div class="fecha">SÁBADO 21 FEBRERO • 8PM</div>
+  <div class="title">Mis</div>
+  <div class="nombre">15 Años Amy</div>
+  <div class="fecha">SÁBADO 21 FEBRERO • 8PM</div>
 
-    <div class="contador">
-        <div class="box"><span id="dias"></span><br>Días</div>
-        <div class="box"><span id="horas"></span><br>Horas</div>
-        <div class="box"><span id="minutos"></span><br>Min</div>
-        <div class="box"><span id="segundos"></span><br>Seg</div>
-    </div>
+  <div class="contador">
+    <div class="box"><span id="dias">0</span><small>Días</small></div>
+    <div class="box"><span id="horas">0</span><small>Horas</small></div>
+    <div class="box"><span id="minutos">0</span><small>Min</small></div>
+    <div class="box"><span id="segundos">0</span><small>Seg</small></div>
+  </div>
 
-    <div class="botones">
-        <button onclick="abrirConfirmar()">Confirmar Asistencia 💖</button>
-        <button onclick="abrirAvisos()">Avisos Importantes ✨</button>
-        <button onclick="verUbicacion()">Ver Ubicación 📍</button>
-    </div>
+  <div class="botones">
+    <button onclick="abrirConfirmar()">Confirmar Asistencia 💖</button>
+    <button onclick="abrirAvisos()">Avisos Importantes ✨</button>
+    <button onclick="verUbicacion()">Ver Ubicación 📍</button>
+  </div>
+
+  <div class="carinio">Con cariño de: <strong id="carinioTxt">la familia 💕</strong></div>
 </div>
 
 <!-- MODAL CONFIRMAR -->
 <div class="modal" id="modalConfirmar">
-<div class="modal-content">
-<h3>Confirma tu asistencia 💕</h3>
-<input type="text" id="nombreInput" placeholder="Nombre en la invitación">
-<textarea id="mensajeInput" placeholder="Mensaje especial para Amy"></textarea>
-<button onclick="enviarWhatsApp()">Enviar Confirmación</button>
-<button onclick="cerrarModal('modalConfirmar')">Cerrar</button>
-</div>
+  <div class="modal-content">
+    <h3>¡Qué emoción! 💖</h3>
+    <p>Confirma tu asistencia y déjale un mensajito lindo a Amy ✨</p>
+
+    <input class="input" type="text" id="nombreInput" placeholder="Nombre en la invitación (persona o familia)">
+    <textarea id="mensajeInput" placeholder="Escribe un mensaje bonito para la quinceañera 💌"></textarea>
+
+    <div class="modal-actions">
+      <button onclick="enviarWhatsApp()">Enviar a WhatsApp</button>
+      <button onclick="cerrarModal('modalConfirmar')">Cerrar</button>
+    </div>
+  </div>
 </div>
 
 <!-- MODAL AVISOS -->
 <div class="modal" id="modalAvisos">
-<div class="modal-content">
-<h3>✨ Información del Evento ✨</h3>
+  <div class="modal-content">
+    <h3>Información ✨</h3>
+    <p style="margin-top:8px;">
+      📍 <strong>Recepción</strong><br>
+      Salón de Eventos Rivadell<br>
+      Gómez Rendón entre Tulcán y Carchi
+    </p>
+    <p style="margin-top:10px;">👗 <strong>Traje:</strong> Formal</p>
+    <p style="margin-top:10px;">⏰ Agradeceremos su puntualidad el día del evento</p>
 
-<p style="margin-top:10px;">
-📍 <strong>Recepción:</strong><br>
-Salón de Eventos Rivadell<br>
-Gómez Rendón entre Tulcán y Carchi
-</p>
-
-<p style="margin-top:10px;">
-👥 <strong>Admisión:</strong> 4 persona(s)
-</p>
-
-<p style="margin-top:10px;">
-👗 <strong>Traje:</strong> Formal
-</p>
-
-<p style="margin-top:10px;">
-⏰ Agradeceremos su puntualidad el día del evento
-</p>
-
-<button onclick="cerrarModal('modalAvisos')">Cerrar</button>
+    <div class="modal-actions">
+      <button onclick="verUbicacion()">Abrir en Maps 📍</button>
+      <button onclick="cerrarModal('modalAvisos')">Cerrar</button>
+    </div>
+  </div>
 </div>
-</div>
-
 
 <!-- MODAL GRACIAS -->
 <div class="modal" id="modalGracias">
-<div class="modal-content">
-<h3>💖 ¡Gracias por confirmar! 💖</h3>
-<p>Estamos felices de contar contigo en este día tan especial ✨</p>
-<button onclick="cerrarModal('modalGracias')">Cerrar</button>
-</div>
+  <div class="modal-content">
+    <h3>¡Gracias! 💕</h3>
+    <p>Tu confirmación significa muchísimo.  
+    ¡Nos vemos en una noche mágica llena de alegría! ✨🎉</p>
+
+    <div class="modal-actions">
+      <button onclick="cerrarModal('modalGracias')">Listo 💖</button>
+    </div>
+  </div>
 </div>
 
+<!-- MUSICA -->
 <audio id="musica" autoplay loop>
-<source src="musica.mp3" type="audio/mpeg">
+  <source src="musica.mp3" type="audio/mpeg">
 </audio>
-
 <button class="music-btn" onclick="toggleMusic()">🎵 Música</button>
 
 <script>
+/* ========= MÚSICA AUTO =========
+   Nota: Algunos navegadores bloquean autoplay con sonido.
+   Por eso hacemos: autoplay + intentos + primer click.
+*/
+const musica = document.getElementById("musica");
+let musicEnabled = true;
 
-/* MUSICA AUTO */
-let musica=document.getElementById("musica");
-document.addEventListener("click",()=>{musica.play();},{once:true});
+function tryPlay(){
+  musica.play().catch(()=>{ /* bloqueado por navegador */ });
+}
+window.addEventListener("load", tryPlay);
+document.addEventListener("click", ()=> tryPlay(), { once:true });
 
 function toggleMusic(){
-    if(musica.paused){musica.play();}
-    else{musica.pause();}
+  if(musica.paused){ musica.play(); musicEnabled=true; }
+  else{ musica.pause(); musicEnabled=false; }
 }
 
-/* CONTADOR */
-const evento=new Date("February 21, 2026 20:00:00").getTime();
+/* ========= CONTADOR ========= */
+const evento = new Date("February 21, 2026 20:00:00").getTime();
 setInterval(()=>{
-let ahora=new Date().getTime();
-let d=evento-ahora;
-document.getElementById("dias").innerHTML=Math.floor(d/(1000*60*60*24));
-document.getElementById("horas").innerHTML=Math.floor((d%(1000*60*60*24))/(1000*60*60));
-document.getElementById("minutos").innerHTML=Math.floor((d%(1000*60*60))/(1000*60));
-document.getElementById("segundos").innerHTML=Math.floor((d%(1000*60))/1000);
+  const ahora = new Date().getTime();
+  const d = evento - ahora;
+
+  document.getElementById("dias").textContent = Math.max(0, Math.floor(d/(1000*60*60*24)));
+  document.getElementById("horas").textContent = Math.max(0, Math.floor((d%(1000*60*60*24))/(1000*60*60)));
+  document.getElementById("minutos").textContent = Math.max(0, Math.floor((d%(1000*60*60))/(1000*60)));
+  document.getElementById("segundos").textContent = Math.max(0, Math.floor((d%(1000*60))/1000));
 },1000);
 
-/* ESTRELLAS */
-const canvas=document.getElementById("stars");
-const ctx=canvas.getContext("2d");
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
+/* ========= ESTRELLAS ========= */
+const canvas = document.getElementById("stars");
+const ctx = canvas.getContext("2d");
+function resize(){
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener("resize", resize);
+
 let stars=[];
-for(let i=0;i<100;i++){
-stars.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*2});
+for(let i=0;i<120;i++){
+  stars.push({
+    x:Math.random()*canvas.width,
+    y:Math.random()*canvas.height,
+    r:Math.random()*2.1,
+    tw:Math.random()*0.02 + 0.005
+  });
 }
-function animate(){
-ctx.clearRect(0,0,canvas.width,canvas.height);
-ctx.fillStyle="white";
-stars.forEach(s=>{
-ctx.beginPath();
-ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
-ctx.fill();
-});
-requestAnimationFrame(animate);
+let t=0;
+function animateStars(){
+  t+=0.01;
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  stars.forEach(s=>{
+    const a = 0.6 + 0.4*Math.sin(t + s.x*0.01);
+    ctx.fillStyle = `rgba(255,255,255,${a})`;
+    ctx.beginPath();
+    ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+    ctx.fill();
+  });
+  requestAnimationFrame(animateStars);
 }
-animate();
+animateStars();
 
-/* MODALES */
-function abrirConfirmar(){document.getElementById("modalConfirmar").classList.add("active");}
-function abrirAvisos(){document.getElementById("modalAvisos").classList.add("active");}
-function cerrarModal(id){document.getElementById(id).classList.remove("active");}
+/* ========= MODALES ========= */
+function abrirConfirmar(){
+  document.getElementById("modalConfirmar").classList.add("active");
+}
+function abrirAvisos(){
+  document.getElementById("modalAvisos").classList.add("active");
+}
+function cerrarModal(id){
+  document.getElementById(id).classList.remove("active");
+}
 
-/* MAPA */
+/* ========= MAPA ========= */
 function verUbicacion(){
-    const direccion = "Salón de Eventos Rivadell, Gómez Rendón entre Tulcán y Carchi";
-    const url = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(direccion);
-    window.open(url, "_blank");
+  const direccion = "Salón de Eventos Rivadell, Gómez Rendón entre Tulcán y Carchi";
+  const url = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(direccion);
+  window.open(url, "_blank");
 }
 
-
-/* WHATSAPP */
+/* ========= WHATSAPP + AGRADECIMIENTO ========= */
 function enviarWhatsApp(){
-let nombre=document.getElementById("nombreInput").value.trim();
-let mensaje=document.getElementById("mensajeInput").value.trim();
-if(nombre===""){alert("Escribe tu nombre");return;}
-let texto=`Hola Amy 💖✨%0AConfirmo mi asistencia a tus 15 años 👑%0ANombre: ${nombre}%0A💌 Mensaje: ${mensaje}%0A🎉 Será una noche mágica!`;
-window.open(`https://wa.me/593981811413?text=${texto}`,"_blank");
-cerrarModal('modalConfirmar');
-setTimeout(()=>{document.getElementById("modalGracias").classList.add("active");},1000);
-}
-/* 15 DINÁMICOS */
+  const nombre = document.getElementById("nombreInput").value.trim();
+  const msg = document.getElementById("mensajeInput").value.trim();
 
+  if(nombre===""){
+    alert("Escribe el nombre que aparece en la invitación 💖");
+    return;
+  }
+
+  // "Con cariño de" se actualiza
+  document.getElementById("carinioTxt").textContent = nombre;
+
+  const texto =
+    `Hola Amy 💖✨%0A` +
+    `¡Con muchísima alegría confirmo mi asistencia a tus 15 años! 👑🎉%0A%0A` +
+    `🩷 De parte de: ${encodeURIComponent(nombre)}%0A` +
+    `💌 Mensajito: ${encodeURIComponent(msg || "¡Que Dios te bendiga siempre y que tengas una noche inolvidable! ✨💖")}%0A%0A` +
+    `Nos vemos para celebrar contigo 🥳🌸`;
+
+  window.open(`https://wa.me/593981811413?text=${texto}`,"_blank");
+
+  cerrarModal("modalConfirmar");
+  setTimeout(()=> document.getElementById("modalGracias").classList.add("active"), 900);
+}
+
+/* ========= 15 DINÁMICOS: TODOS SALEN DE ABAJO ========= */
 function crear15(){
-    const el=document.createElement("div");
-    el.className="floating15";
-    el.innerText="15";
+  const el = document.createElement("div");
+  el.className = "floating15";
+  el.textContent = "15";
 
-    const size=Math.random()*120+80;
-    el.style.fontSize=size+"px";
-    el.style.left=Math.random()*100+"vw";
-    el.style.top="100vh";
+  // tamaño y posición
+  const size = Math.random()*90 + 70; // 70..160
+  el.style.fontSize = size + "px";
+  el.style.left = (Math.random()*100) + "vw";
+  el.style.top = "110vh";
 
-    document.body.appendChild(el);
+  // variaciones visuales
+  const blur = (Math.random()*1.2).toFixed(2);
+  el.style.filter = `blur(${blur}px)`;
+  el.style.opacity = (Math.random()*0.35 + 0.25).toFixed(2); // 0.25..0.60
 
-    const duration=Math.random()*15000+10000;
-    const start=Date.now();
+  const rot = (Math.random()*18 - 9).toFixed(1);
+  const drift = (Math.random()*18 - 9).toFixed(1); // movimiento lateral
+  const duration = Math.random()*12000 + 12000; // 12..24s
+  const start = performance.now();
 
-    function animar(){
-        const progress=(Date.now()-start)/duration;
-        el.style.transform=`translateY(-${progress*120}vh)`;
-        el.style.opacity=1-progress;
+  document.body.appendChild(el);
 
-        if(progress<1){
-            requestAnimationFrame(animar);
-        }else{
-            el.remove();
-        }
+  function step(now){
+    const p = Math.min(1, (now - start)/duration);
+
+    // sube desde abajo (110vh) hasta -30vh
+    const y = 110 - p*140; // vh
+    const x = drift * Math.sin(p*Math.PI*2); // va y viene suave
+    const scale = 0.95 + 0.12*Math.sin(p*Math.PI); // leve “respirar”
+    el.style.transform = `translate(${x}vw, -${(110 - y)}vh) rotate(${rot + p*12}deg) scale(${scale})`;
+
+    // se desvanece al final
+    el.style.opacity = String((1 - p) * parseFloat(el.style.opacity));
+
+    if(p < 1){
+      requestAnimationFrame(step);
+    }else{
+      el.remove();
     }
+  }
 
-    animar();
+  requestAnimationFrame(step);
 }
 
-/* Crear varios al inicio */
-for(let i=0;i<6;i++){
-    setTimeout(crear15,i*2000);
+// Al inicio: varios, pero TODOS parten de abajo
+for(let i=0;i<10;i++){
+  setTimeout(crear15, i*700);
 }
-
-/* Crear continuamente */
-setInterval(crear15,4000);
-
+// Continuo
+setInterval(crear15, 1400);
 </script>
-
 </body>
 </html>
