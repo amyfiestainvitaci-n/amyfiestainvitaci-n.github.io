@@ -23,6 +23,60 @@ body{
   color:white;
 }
 
+/* =========================
+   INTRO VIDEO FULLSCREEN
+========================= */
+.intro{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:#000;
+  opacity:1;
+  transition:opacity .6s ease;
+}
+.intro.hidden{ opacity:0; pointer-events:none; }
+
+.intro video{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+/* Flash/Brillo */
+.flash{
+  position:fixed;
+  inset:0;
+  background:white;
+  opacity:0;
+  z-index:9998;
+  pointer-events:none;
+}
+.flash.on{
+  animation:flashBoom .75s ease forwards;
+}
+@keyframes flashBoom{
+  0%{opacity:0;}
+  25%{opacity:1;}
+  60%{opacity:.4;}
+  100%{opacity:0;}
+}
+
+/* =========================
+   CONTENIDO PRINCIPAL
+========================= */
+#main{
+  opacity:0;
+  transform:scale(1.02);
+  transition:opacity .8s ease, transform .8s ease;
+}
+#main.show{
+  opacity:1;
+  transform:scale(1);
+}
+
 /* AURA */
 .bg-aura{
   position:fixed;
@@ -59,7 +113,7 @@ canvas{
   opacity:.9;
 }
 
-/* 15 FLOTANTES (pocos y elegantes) */
+/* 15 FLOTANTES */
 .floating15{
   position:fixed;
   font-weight:900;
@@ -255,97 +309,152 @@ textarea{min-height:90px; resize:none;}
 </head>
 
 <body>
-<div class="bg-aura"></div>
-<div class="bokeh"></div>
-<canvas id="stars"></canvas>
 
-<div class="container">
-  <div class="title">Mis</div>
-  <div class="nombre">15 Años Amy</div>
-  <div class="fecha">SÁBADO 21 FEBRERO • 8PM</div>
-
-  <div class="contador">
-    <div class="box"><span id="dias">0</span><small>Días</small></div>
-    <div class="box"><span id="horas">0</span><small>Horas</small></div>
-    <div class="box"><span id="minutos">0</span><small>Min</small></div>
-    <div class="box"><span id="segundos">0</span><small>Seg</small></div>
-  </div>
-
-  <div class="botones">
-    <button onclick="abrirConfirmar()">Confirmar Asistencia 💖</button>
-    <button onclick="abrirAvisos()">Avisos Importantes ✨</button>
-    <button onclick="verUbicacion()">Ver Ubicación 📍</button>
-  </div>
-
-  <div class="carinio">Con cariño de: <strong id="carinioTxt">la familia 💕</strong></div>
+<!-- INTRO -->
+<div class="intro" id="intro">
+  <video id="introVideo" autoplay muted playsinline preload="auto">
+    <source src="intro.mp4" type="video/mp4">
+  </video>
 </div>
+<div class="flash" id="flash"></div>
 
-<!-- MODAL CONFIRMAR -->
-<div class="modal" id="modalConfirmar">
-  <div class="modal-content">
-    <h3>¡Qué emoción! 💖</h3>
-    <p>Confirma tu asistencia y déjale un mensajito lindo a Amy ✨</p>
+<!-- MAIN -->
+<div id="main">
+  <div class="bg-aura"></div>
+  <div class="bokeh"></div>
+  <canvas id="stars"></canvas>
 
-    <input class="input" type="text" id="nombreInput" placeholder="Nombre en la invitación (persona o familia)">
-    <textarea id="mensajeInput" placeholder="Escribe un mensaje bonito para la quinceañera 💌"></textarea>
+  <div class="container">
+    <div class="title">Mis</div>
+    <div class="nombre">15 Años Amy</div>
+    <div class="fecha">SÁBADO 21 FEBRERO • 8PM</div>
 
-    <div class="modal-actions">
-      <button onclick="enviarWhatsApp()">Enviar a WhatsApp</button>
-      <button onclick="cerrarModal('modalConfirmar')">Cerrar</button>
+    <div class="contador">
+      <div class="box"><span id="dias">0</span><small>Días</small></div>
+      <div class="box"><span id="horas">0</span><small>Horas</small></div>
+      <div class="box"><span id="minutos">0</span><small>Min</small></div>
+      <div class="box"><span id="segundos">0</span><small>Seg</small></div>
+    </div>
+
+    <div class="botones">
+      <button onclick="abrirConfirmar()">Confirmar Asistencia 💖</button>
+      <button onclick="abrirAvisos()">Avisos Importantes ✨</button>
+      <button onclick="verUbicacion()">Ver Ubicación 📍</button>
+    </div>
+
+    <div class="carinio">Con cariño de: <strong id="carinioTxt">la familia 💕</strong></div>
+  </div>
+
+  <!-- MODAL CONFIRMAR -->
+  <div class="modal" id="modalConfirmar">
+    <div class="modal-content">
+      <h3>¡Qué emoción! 💖</h3>
+      <p>Confirma tu asistencia y déjale un mensajito lindo a Amy ✨</p>
+
+      <input class="input" type="text" id="nombreInput" placeholder="Nombre en la invitación (persona o familia)">
+      <textarea id="mensajeInput" placeholder="Escribe un mensaje bonito para la quinceañera 💌"></textarea>
+
+      <div class="modal-actions">
+        <button onclick="enviarWhatsApp()">Enviar a WhatsApp</button>
+        <button onclick="cerrarModal('modalConfirmar')">Cerrar</button>
+      </div>
     </div>
   </div>
-</div>
 
-<!-- MODAL AVISOS -->
-<div class="modal" id="modalAvisos">
-  <div class="modal-content">
-    <h3>Información ✨</h3>
-    <p style="margin-top:8px;">
-      📍 <strong>Recepción</strong><br>
-      Salón de Eventos Rivadell<br>
-      Gómez Rendón entre Tulcán y Carchi
-    </p>
-    <p style="margin-top:10px;">👗 <strong>Traje:</strong> Formal</p>
-    <p style="margin-top:10px;">⏰ Agradeceremos su puntualidad el día del evento</p>
+  <!-- MODAL AVISOS -->
+  <div class="modal" id="modalAvisos">
+    <div class="modal-content">
+      <h3>Información ✨</h3>
+      <p style="margin-top:8px;">
+        📍 <strong>Recepción</strong><br>
+        Salón de Eventos Rivadell<br>
+        Gómez Rendón entre Tulcán y Carchi
+      </p>
+      <p style="margin-top:10px;">👗 <strong>Traje:</strong> Formal</p>
+      <p style="margin-top:10px;">⏰ Agradeceremos su puntualidad el día del evento</p>
 
-    <div class="modal-actions">
-      <button onclick="verUbicacion()">Abrir en Maps 📍</button>
-      <button onclick="cerrarModal('modalAvisos')">Cerrar</button>
+      <div class="modal-actions">
+        <button onclick="verUbicacion()">Abrir en Maps 📍</button>
+        <button onclick="cerrarModal('modalAvisos')">Cerrar</button>
+      </div>
     </div>
   </div>
-</div>
 
-<!-- MODAL GRACIAS -->
-<div class="modal" id="modalGracias">
-  <div class="modal-content">
-    <h3>¡Gracias! 💕</h3>
-    <p>Tu confirmación significa muchísimo.  
-    ¡Nos vemos en una noche mágica llena de alegría! ✨🎉</p>
+  <!-- MODAL GRACIAS -->
+  <div class="modal" id="modalGracias">
+    <div class="modal-content">
+      <h3>¡Gracias! 💕</h3>
+      <p>Tu confirmación significa muchísimo.  
+      ¡Nos vemos en una noche mágica llena de alegría! ✨🎉</p>
 
-    <div class="modal-actions">
-      <button onclick="cerrarModal('modalGracias')">Listo 💖</button>
+      <div class="modal-actions">
+        <button onclick="cerrarModal('modalGracias')">Listo 💖</button>
+      </div>
     </div>
   </div>
-</div>
 
-<!-- MUSICA -->
-<audio id="musica" autoplay loop>
-  <source src="musica.mp3" type="audio/mpeg">
-</audio>
-<button class="music-btn" onclick="toggleMusic()">🎵 Música</button>
+  <!-- MUSICA -->
+  <audio id="musica" autoplay loop>
+    <source src="musica.mp3" type="audio/mpeg">
+  </audio>
+  <button class="music-btn" onclick="toggleMusic()">🎵 Música</button>
+</div>
 
 <script>
-/* ===== UTILIDADES ===== */
+/* =========================
+   INTRO VIDEO CONTROL
+========================= */
+const intro = document.getElementById("intro");
+const introVideo = document.getElementById("introVideo");
+const flash = document.getElementById("flash");
+const main = document.getElementById("main");
+
+/* Intentar autoplay del video */
+function playIntro(){
+  introVideo.play().catch(()=>{});
+}
+window.addEventListener("load", playIntro);
+
+/* Si el navegador bloquea autoplay, primer click lo inicia */
+document.addEventListener("click", ()=> {
+  playIntro();
+}, { once:true });
+
+/* Al terminar el video: flash + mostrar main */
+function finishIntro(){
+  flash.classList.add("on");
+  setTimeout(()=>{
+    intro.classList.add("hidden");
+    main.classList.add("show");
+    // arrancar música y animaciones ya con main visible
+    tryPlayMusic();
+    iniciar15();
+  }, 180);
+}
+introVideo.addEventListener("ended", finishIntro);
+
+/* Fallback: si el video no carga o se queda, forzar a los 12s */
+setTimeout(()=>{
+  if(!main.classList.contains("show")){
+    finishIntro();
+  }
+}, 12000);
+
+/* =========================
+   UTILIDADES
+========================= */
 const rnd = (min,max)=> Math.random()*(max-min)+min;
 
-/* ===== 15 FLOTANTES: POCOS + NATURALES (no se nota bucle) ===== */
+/* =========================
+   15 FLOTANTES: POCOS + NATURALES
+========================= */
 function crear15(){
   const el = document.createElement("div");
   el.className = "floating15";
   el.textContent = "15";
 
-  const size = rnd(74, 145);     // tamaño elegante
-  const left = rnd(-5, 105);     // algunos entran ligeramente fuera
+  const size = rnd(74, 145);
+  const left = rnd(-5, 105);
   const baseOpacity = rnd(0.22, 0.48);
   const blur = rnd(0.0, 1.1);
 
@@ -355,10 +464,9 @@ function crear15(){
   el.style.opacity = baseOpacity.toFixed(2);
   el.style.filter = `blur(${blur.toFixed(2)}px)`;
 
-  // movimiento aleatorio
   const rot0 = rnd(-10, 10);
   const drift = rnd(-7, 7);
-  const duration = rnd(14000, 26000); // lento y elegante
+  const duration = rnd(14000, 26000);
   const start = performance.now();
 
   document.body.appendChild(el);
@@ -366,7 +474,7 @@ function crear15(){
   function step(now){
     const p = Math.min(1, (now - start)/duration);
 
-    const yVh = 112 - p*160;             // 112 -> -48
+    const yVh = 112 - p*160;
     const xVw = drift * Math.sin(p*Math.PI*2);
     const scale = 0.92 + 0.10*Math.sin(p*Math.PI);
 
@@ -379,40 +487,40 @@ function crear15(){
   requestAnimationFrame(step);
 }
 
-/* Arranque: pocos, elegantes */
 function iniciar15(){
+  // arranque suave
   for(let i=0;i<4;i++){
     setTimeout(crear15, i*260);
   }
   programarSiguiente15();
 }
-
-/* Programación aleatoria para NO notar patrón */
 function programarSiguiente15(){
-  const next = rnd(2200, 4200); // 2.2s a 4.2s
+  const next = rnd(2200, 4200);
   setTimeout(()=>{
     crear15();
-
-    // 15% chance de que salga uno extra (para romper patrón)
     if(Math.random() < 0.15){
       setTimeout(crear15, rnd(250, 800));
     }
-
     programarSiguiente15();
   }, next);
 }
 
-/* ===== MÚSICA AUTO ===== */
+/* =========================
+   MÚSICA AUTO
+========================= */
 const musica = document.getElementById("musica");
-function tryPlay(){ musica.play().catch(()=>{}); }
-window.addEventListener("load", tryPlay);
-document.addEventListener("click", ()=> tryPlay(), { once:true });
+function tryPlayMusic(){ musica.play().catch(()=>{}); }
 function toggleMusic(){
   if(musica.paused) musica.play();
   else musica.pause();
 }
 
-/* ===== CONTADOR ===== */
+/* Cuando el usuario toque/click -> permitir autoplay */
+document.addEventListener("click", ()=> tryPlayMusic(), { once:true });
+
+/* =========================
+   CONTADOR
+========================= */
 const evento = new Date("February 21, 2026 20:00:00").getTime();
 setInterval(()=>{
   const ahora = new Date().getTime();
@@ -424,7 +532,9 @@ setInterval(()=>{
   document.getElementById("segundos").textContent = Math.max(0, Math.floor((d%(1000*60))/1000));
 },1000);
 
-/* ===== ESTRELLAS ===== */
+/* =========================
+   ESTRELLAS
+========================= */
 const canvas = document.getElementById("stars");
 const ctx = canvas.getContext("2d");
 function resize(){
@@ -453,19 +563,25 @@ function animateStars(){
 }
 animateStars();
 
-/* ===== MODALES ===== */
+/* =========================
+   MODALES
+========================= */
 function abrirConfirmar(){ document.getElementById("modalConfirmar").classList.add("active"); }
 function abrirAvisos(){ document.getElementById("modalAvisos").classList.add("active"); }
 function cerrarModal(id){ document.getElementById(id).classList.remove("active"); }
 
-/* ===== MAPA ===== */
+/* =========================
+   UBICACIÓN
+========================= */
 function verUbicacion(){
   const direccion = "Salón de Eventos Rivadell, Gómez Rendón entre Tulcán y Carchi";
   const url = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(direccion);
   window.open(url, "_blank");
 }
 
-/* ===== WHATSAPP ===== */
+/* =========================
+   WHATSAPP
+========================= */
 function enviarWhatsApp(){
   const nombre = document.getElementById("nombreInput").value.trim();
   const msg = document.getElementById("mensajeInput").value.trim();
@@ -484,14 +600,11 @@ function enviarWhatsApp(){
     `💌 Mensajito: ${encodeURIComponent(msg || "¡Que tengas una noche hermosa e inolvidable! 🌸✨💖")}%0A%0A` +
     `Nos vemos para celebrar contigo 🥳🌷`;
 
-  window.open(`https://wa.me/593989559788?text=${texto}`,"_blank");
+  window.open(`https://wa.me/593981811413?text=${texto}`,"_blank");
 
   cerrarModal("modalConfirmar");
   setTimeout(()=> document.getElementById("modalGracias").classList.add("active"), 900);
 }
-
-/* ✅ ARRANCAR TODO AL ABRIR */
-document.addEventListener("DOMContentLoaded", iniciar15);
 </script>
 </body>
 </html>
