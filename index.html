@@ -161,6 +161,14 @@ input,textarea{
     padding:10px 15px;
     border-radius:20px;
 }
+.floating15{
+    position:fixed;
+    font-weight:bold;
+    color:rgba(255,20,147,0.12);
+    text-shadow:0 0 40px rgba(255,20,147,0.4);
+    pointer-events:none;
+    z-index:-2;
+}
 
 /* RESPONSIVE */
 @media(max-width:500px){
@@ -297,6 +305,45 @@ window.open(`https://wa.me/593981811413?text=${texto}`,"_blank");
 cerrarModal('modalConfirmar');
 setTimeout(()=>{document.getElementById("modalGracias").classList.add("active");},1000);
 }
+/* 15 DINÁMICOS */
+
+function crear15(){
+    const el=document.createElement("div");
+    el.className="floating15";
+    el.innerText="15";
+
+    const size=Math.random()*120+80;
+    el.style.fontSize=size+"px";
+    el.style.left=Math.random()*100+"vw";
+    el.style.top="100vh";
+
+    document.body.appendChild(el);
+
+    const duration=Math.random()*15000+10000;
+    const start=Date.now();
+
+    function animar(){
+        const progress=(Date.now()-start)/duration;
+        el.style.transform=`translateY(-${progress*120}vh)`;
+        el.style.opacity=1-progress;
+
+        if(progress<1){
+            requestAnimationFrame(animar);
+        }else{
+            el.remove();
+        }
+    }
+
+    animar();
+}
+
+/* Crear varios al inicio */
+for(let i=0;i<6;i++){
+    setTimeout(crear15,i*2000);
+}
+
+/* Crear continuamente */
+setInterval(crear15,4000);
 
 </script>
 
